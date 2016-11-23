@@ -99,7 +99,7 @@
               echo "Le login est utilisé";
             }else{
 
-            $sql = "INSERT INTO producteur(nomProd,prenomProd,loginProd,mdpProd) VALUES ('$nomProd','$prenomProd,'$loginProd','$mdpProd')";
+            $sql = "INSERT INTO producteur(nomProd,prenomProd,loginProd,mdpProd) VALUES ('$nomProd','$prenomProd','$loginProd','$mdpProd')";
             mysqli_query ($connect,$sql);
             die("Inscription Producteur terminée <a href='connexion.php'>connectez vous</a>");
           }
