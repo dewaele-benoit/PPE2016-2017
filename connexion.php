@@ -27,11 +27,10 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Connexion') {
   $mdp = crypt($temp,'$2a$11$'.md5($temp).'$');  
   if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['mdp']) && !empty($_POST['mdp']))){ 
     $connect = mysqli_connect('localhost','root','')or die("ERROR");
-            mysqli_select_db($connect,'agrur') or die("ERROR");
+            mysqli_select_db($connect,'agrurppe') or die("ERROR");
 
   // on teste si une entrée de la base contient ce couple login / pass
-  $sql = "SELECT * FROM utilisateurs WHERE login='$login' && mdp='$mdp'";
-
+  
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
   $data = mysqli_fetch_array($req);
 
@@ -46,7 +45,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Connexion') {
     session_start();
     $_SESSION['login'] = $login;   
 
-   if($data['profil'] == 'producteur')
+   if($data['login'] == $login)
     {
     header('location: accueilprod.php');
     }
@@ -54,7 +53,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Connexion') {
     else
     {
         header('location: accueilclient.php');
-}
+    }
     
    exit;
 

@@ -63,23 +63,24 @@
 
         if($loginClient&&$mdpClient&&$nomClient)
         {
-            
             $connect = mysqli_connect('localhost','root','')or die("ERROR");
             mysqli_select_db($connect,'agrurppe') or die("ERROR");
 
             $flag=0;
-            $req="SELECT loginClient FROM  client";
+            $req="SELECT login FROM  producteur";
             $result= mysqli_query($connect, $req);
             while ($row = $result->fetch_assoc()) {
-              if($row['loginClient']==$loginClient){
+              if($row['login']==$loginClient){
                 $flag=1;
               }
             }
             if ($flag==1){
               echo "Le login est utilisé";
             }else{
-              $sql = "INSERT INTO client(nomCLient,loginClient,mdpClient) VALUES ('$nomClient','$loginClient','$mdpClient')";
+              $sql = "INSERT INTO producteur(login,mdp) VALUES ('$loginClient','$mdpClient')";
               mysqli_query ($connect,$sql);
+              $sql2="INSERT INTO client(nomClient) VALUES ('$nomClient')";
+              mysqli_query ($connect,$sql2);
               die("Inscription terminée Client <a href='connexion.php'>connectez vous</a>");
             }
 
@@ -88,10 +89,10 @@
             mysqli_select_db($connect,'agrurppe') or die("ERROR");
 
             $flag=0;
-            $req="SELECT loginProd FROM  producteur";
+            $req="SELECT login FROM  producteur";
             $result= mysqli_query($connect, $req);
             while ($row = $result->fetch_assoc()) {
-              if($row['loginProd']==$loginProd){
+              if($row['login']==$loginProd){
                 $flag=1;
               }
             }
@@ -99,7 +100,7 @@
               echo "Le login est utilisé";
             }else{
 
-            $sql = "INSERT INTO producteur(nomProd,prenomProd,loginProd,mdpProd) VALUES ('$nomProd','$prenomProd','$loginProd','$mdpProd')";
+            $sql = "INSERT INTO producteur(nomProd,prenomProd,login,mdp) VALUES ('$nomProd','$prenomProd','$loginProd','$mdpProd')";
             mysqli_query ($connect,$sql);
             die("Inscription Producteur terminée <a href='connexion.php'>connectez vous</a>");
           }

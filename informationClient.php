@@ -6,30 +6,34 @@
     <link href="" rel="stylesheet">
 </head>
 <body>
-
+        <?php
+            $connect = mysqli_connect('localhost','root','')or die("ERROR");
+            mysqli_select_db($connect,'agrurppe') or die("ERROR");
+            /*session_start();
+            if (isset($_SESSION['login'])){
+                $loginC = $_SESSION['login'];
+            }
+            else{
+                echo "erreur";
+            }*/
+            
+            $reqNom="SELECT nomClient FROM client WHERE nomCLient='log1' ";
+            $nom= mysqli_query($connect, $reqNom);        
+        ?>
 	<form action="informationClient.php" method="post">
-		Votre nom : <input type="text" name="nomC"><br>
+		Votre nom : <input type="text" name="nomC" value="<?php $nom ?>"><br>
 		Votre adresse : <input type="text" name="adresseC"><br>
 		Le nom du responsable de vos achat : <input type="text" name="nomRespAchatC"><br>
-        Votre login : <input type="text" name="loginC"><br>
-        Modifier mdp : <input type="password" name="mdpC"><br>
+                Votre login : <input type="text" name="loginC"><br>
+                Modifier mdp : <input type="password" name="mdpC"><br>
 		<input type="submit" name="envoyerClient" value="Envoyer">
 	</form>
 
 	<?php
 	//media query
     //slack
-    session_start();
-    if (isset($_SESSION['login'])){
-        $loginC = $_SESSION['login'];
-    }
-    else{
-        echo "erreur";
-    }
 
-
-    $connect = mysqli_connect('localhost','root','')or die("ERROR");
-            mysqli_select_db($connect,'agrurppe') or die("ERROR");
+    
 
     if(isset($_POST['envoyerClient']))
     {
